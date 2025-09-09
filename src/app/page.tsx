@@ -2,7 +2,11 @@
 
 import { HeroSection } from "@/components/shop/hero-section";
 import { ProductCard } from "@/components/shop/product-card";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Card, CardContent } from "@/components/ui/card";
 import { Product } from "@/types";
+import { useToast } from "@/hooks/use-toast";
 
 // Mock data for demonstration
 const featuredProducts: Product[] = [
@@ -53,18 +57,28 @@ const featuredProducts: Product[] = [
 ];
 
 export default function Home() {
+  const { toast } = useToast();
+
+  const handleAddToCart = (product: Product) => {
+    toast({
+      title: "Added to cart!",
+      description: `${product.name} has been added to your cart.`,
+      variant: "success",
+    });
+  };
+
   return (
-    <div>
+    <div className="min-h-screen bg-background">
       <HeroSection />
       
       {/* Featured Products Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Section size="lg" className="bg-muted/30">
+        <Container>
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="heading-2 mb-4">
               Featured Products
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="lead">
               Discover our most popular items
             </p>
           </div>
@@ -74,44 +88,49 @@ export default function Home() {
               <ProductCard 
                 key={product.id} 
                 product={product}
-                onAddToCart={(product) => {
-                  console.log("Added to cart:", product.name);
-                  // TODO: Implement cart functionality
-                }}
+                onAddToCart={handleAddToCart}
               />
             ))}
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
       {/* Features Section */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Section size="lg">
+        <Container>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🚚</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Free Shipping</h3>
-              <p className="text-gray-600">Free shipping on orders over $50</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">↩️</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Easy Returns</h3>
-              <p className="text-gray-600">30-day return policy</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">💬</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">24/7 Support</h3>
-              <p className="text-gray-600">Customer support whenever you need it</p>
-            </div>
+            <Card className="text-center border-0 shadow-none">
+              <CardContent className="pt-6">
+                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🚚</span>
+                </div>
+                <h3 className="heading-5 mb-2">Free Shipping</h3>
+                <p className="text-muted-foreground">Free shipping on orders over $50</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center border-0 shadow-none">
+              <CardContent className="pt-6">
+                <div className="bg-success/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">↩️</span>
+                </div>
+                <h3 className="heading-5 mb-2">Easy Returns</h3>
+                <p className="text-muted-foreground">30-day return policy</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center border-0 shadow-none">
+              <CardContent className="pt-6">
+                <div className="bg-info/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">💬</span>
+                </div>
+                <h3 className="heading-5 mb-2">24/7 Support</h3>
+                <p className="text-muted-foreground">Customer support whenever you need it</p>
+              </CardContent>
+            </Card>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     </div>
   );
 }
