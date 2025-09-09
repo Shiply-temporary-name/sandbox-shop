@@ -71,6 +71,72 @@ const products: Product[] = [
     rating: 4.7,
     reviews: 156,
   },
+  {
+    id: "7",
+    name: "Yoga Mat",
+    description: "Premium non-slip yoga mat with excellent grip and cushioning.",
+    price: 49.99,
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop",
+    category: "Sports",
+    inStock: true,
+    rating: 4.6,
+    reviews: 203,
+  },
+  {
+    id: "8",
+    name: "Desk Lamp",
+    description: "Modern LED desk lamp with adjustable brightness and USB charging port.",
+    price: 69.99,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+    category: "Home & Kitchen",
+    inStock: true,
+    rating: 4.5,
+    reviews: 87,
+  },
+  {
+    id: "9",
+    name: "Wireless Mouse",
+    description: "Ergonomic wireless mouse with precision tracking and long battery life.",
+    price: 39.99,
+    image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&h=400&fit=crop",
+    category: "Electronics",
+    inStock: true,
+    rating: 4.4,
+    reviews: 134,
+  },
+  {
+    id: "10",
+    name: "Water Bottle",
+    description: "Insulated stainless steel water bottle that keeps drinks cold for 24 hours.",
+    price: 24.99,
+    image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&h=400&fit=crop",
+    category: "Accessories",
+    inStock: true,
+    rating: 4.7,
+    reviews: 298,
+  },
+  {
+    id: "11",
+    name: "Phone Case",
+    description: "Protective phone case with shock absorption and wireless charging compatibility.",
+    price: 19.99,
+    image: "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=400&h=400&fit=crop",
+    category: "Accessories",
+    inStock: true,
+    rating: 4.2,
+    reviews: 156,
+  },
+  {
+    id: "12",
+    name: "Fitness Tracker",
+    description: "Advanced fitness tracker with heart rate monitoring and sleep tracking.",
+    price: 89.99,
+    image: "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=400&h=400&fit=crop",
+    category: "Electronics",
+    inStock: true,
+    rating: 4.5,
+    reviews: 187,
+  },
 ];
 
 export default function ProductsPage() {
@@ -107,10 +173,6 @@ export default function ProductsPage() {
             <ProductCard 
               key={product.id} 
               product={product}
-              onAddToCart={(product) => {
-                console.log("Added to cart:", product.name);
-                // TODO: Implement cart functionality
-              }}
             />
           ))}
         </div>
