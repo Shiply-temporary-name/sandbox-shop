@@ -1,101 +1,93 @@
 import Link from "next/link";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Badge } from "@/components/ui/badge";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="col-span-1 md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">ShopStore</h3>
-            <p className="text-gray-300 mb-4">
-              Your one-stop destination for quality products at great prices. 
-              We're committed to providing excellent customer service and fast delivery.
-            </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-white">
-                Facebook
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white">
-                Twitter
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white">
-                Instagram
-              </a>
+    <footer className="bg-muted/30 border-t">
+      <Section size="lg">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="space-y-4">
+              <h3 className="heading-4">ShopStore</h3>
+              <p className="text-muted-foreground">
+                Your one-stop destination for quality products at unbeatable prices.
+              </p>
+              <div className="flex space-x-4">
+                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Facebook className="h-5 w-5" />
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Twitter className="h-5 w-5" />
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Instagram className="h-5 w-5" />
+                </Link>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <h4 className="heading-5">Quick Links</h4>
+              <ul className="space-y-2">
+                <li><Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link></li>
+                <li><Link href="/products" className="text-muted-foreground hover:text-foreground transition-colors">Products</Link></li>
+                <li><Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
+                <li><Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
+                <li><Link href="/design" className="text-muted-foreground hover:text-foreground transition-colors">Design System</Link></li>
+              </ul>
+            </div>
+            
+            <div className="space-y-4">
+              <h4 className="heading-5">Customer Service</h4>
+              <ul className="space-y-2">
+                <li><Link href="/shipping" className="text-muted-foreground hover:text-foreground transition-colors">Shipping Info</Link></li>
+                <li><Link href="/returns" className="text-muted-foreground hover:text-foreground transition-colors">Returns</Link></li>
+                <li><Link href="/faq" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</Link></li>
+                <li><Link href="/support" className="text-muted-foreground hover:text-foreground transition-colors">Support</Link></li>
+              </ul>
+            </div>
+            
+            <div className="space-y-4">
+              <h4 className="heading-5">Contact Info</h4>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <Mail className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">support@shopstore.com</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Phone className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">+1 (555) 123-4567</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <MapPin className="h-4 w-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">123 Store St, City, ST 12345</span>
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-gray-300 hover:text-white">
-                  About Us
+          
+          <div className="border-t pt-8 mt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+              <p className="text-muted-foreground text-sm">
+                © 2024 ShopStore. All rights reserved.
+              </p>
+              <div className="flex items-center space-x-4">
+                <Link href="/privacy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Privacy Policy
                 </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-300 hover:text-white">
-                  Contact
+                <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Terms of Service
                 </Link>
-              </li>
-              <li>
-                <Link href="/shipping" className="text-gray-300 hover:text-white">
-                  Shipping Info
-                </Link>
-              </li>
-              <li>
-                <Link href="/returns" className="text-gray-300 hover:text-white">
-                  Returns
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Customer Service */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Customer Service</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/help" className="text-gray-300 hover:text-white">
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link href="/track-order" className="text-gray-300 hover:text-white">
-                  Track Order
-                </Link>
-              </li>
-              <li>
-                <Link href="/size-guide" className="text-gray-300 hover:text-white">
-                  Size Guide
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-gray-300 hover:text-white">
-                  FAQ
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="border-t border-gray-700 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-300 text-sm">
-              © 2024 ShopStore. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link href="/privacy" className="text-gray-300 hover:text-white text-sm">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-gray-300 hover:text-white text-sm">
-                Terms of Service
-              </Link>
+                <Badge variant="outline" className="text-xs">
+                  v1.0.0
+                </Badge>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Container>
+      </Section>
     </footer>
   );
 }

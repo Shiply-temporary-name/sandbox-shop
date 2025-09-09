@@ -1,7 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { ProductCard } from "@/components/shop/product-card";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { Product } from "@/types";
+import { useToast } from "@/hooks/use-toast";
+import { Search, Grid, List } from "lucide-react";
 
 // Mock data for demonstration
 const products: Product[] = [
@@ -74,47 +83,126 @@ const products: Product[] = [
 ];
 
 export default function ProductsPage() {
+  const { toast } = useToast();
+
+  const handleAddToCart = (product: Product) => {
+    toast({
+      title: "Added to cart!",
+      description: `${product.name} has been added to your cart.`,
+      variant: "success",
+    });
+  };
+
+  const categories = ["All", "Electronics", "Sports", "Accessories", "Home & Kitchen"];
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  const filteredProducts = selectedCategory === "All" 
+    ? products 
+    : products.filter(product => product.category === selectedCategory);
+
   return (
-    <div className="py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">All Products</h1>
-          <p className="text-lg text-gray-600">
-            Browse our complete collection of products
-          </p>
-        </div>
+    <div className="min-h-screen bg-background">
+      <Section size="lg">
+        <Container>
+          <div className="mb-8">
+            <h1 className="heading-1 mb-4">All Products</h1>
+            <p className="lead">
+              Browse our complete collection of products
+            </p>
+          </div>
 
-        {/* Filters */}
-        <div className="mb-8 flex flex-wrap gap-4">
-          <select className="px-4 py-2 border border-gray-300 rounded-md">
-            <option>All Categories</option>
-            <option>Electronics</option>
-            <option>Sports</option>
-            <option>Home & Kitchen</option>
-            <option>Accessories</option>
-          </select>
-          <select className="px-4 py-2 border border-gray-300 rounded-md">
-            <option>Sort by: Featured</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-            <option>Rating</option>
-          </select>
-        </div>
+          {/* Filters and Search */}
+          <Card className="mb-8">
+            <CardContent className="p-6">
+              <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+                <div className="flex flex-col sm:flex-row gap-4 flex-1">
+                  <div className="relative flex-1 max-w-md">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Search products..."
+                      className="pl-10"
+                    />
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    {categories.map((category) => (
+                      <Button
+                        key={category}
+                        variant={selectedCategory === category ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => setSelectedCategory(category)}
+                      >
+                        {category}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCard 
-              key={product.id} 
-              product={product}
-              onAddToCart={(product) => {
-                console.log("Added to cart:", product.name);
-                // TODO: Implement cart functionality
-              }}
-            />
-          ))}
-        </div>
-      </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant={viewMode === "grid" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setViewMode("grid")}
+                  >
+                    <Grid className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant={viewMode === "list" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setViewMode("list")}
+                  >
+                    <List className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Results Summary */}
+          <div className="flex items-center justify-between mb-6">
+            <p className="text-muted-foreground">
+              Showing {filteredProducts.length} products
+              {selectedCategory !== "All" && ` in ${selectedCategory}`}
+            </p>
+            <Badge variant="secondary">
+              {selectedCategory}
+            </Badge>
+          </div>
+          
+          {/* Products Grid */}
+          <div className={
+            viewMode === "grid" 
+              ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              : "space-y-4"
+          }>
+            {filteredProducts.map((product) => (
+              <ProductCard 
+                key={product.id} 
+                product={product}
+                onAddToCart={handleAddToCart}
+              />
+            ))}
+          </div>
+
+          {filteredProducts.length === 0 && (
+            <Card className="text-center py-12">
+              <CardContent>
+                <p className="text-muted-foreground text-lg">
+                  No products found in this category.
+                </p>
+                <Button 
+                  variant="outline" 
+                  className="mt-4"
+                  onClick={() => setSelectedCategory("All")}
+                >
+                  View All Products
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </Container>
+      </Section>
     </div>
   );
 }
