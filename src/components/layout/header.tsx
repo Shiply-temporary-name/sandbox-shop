@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { ShoppingCart, Search, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/store/cart-context";
 
 export function Header() {
+  const { cart } = useCart();
+
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,10 +54,17 @@ export function Header() {
             <Button variant="ghost" size="sm">
               <User className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="sm">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="ml-1 text-sm">0</span>
-            </Button>
+            <Link href="/cart">
+              <Button variant="ghost" size="sm" className="relative">
+                <ShoppingCart className="h-5 w-5" />
+                {cart.itemCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cart.itemCount}
+                  </span>
+                )}
+                <span className="ml-1 text-sm">{cart.itemCount}</span>
+              </Button>
+            </Link>
             <Button variant="ghost" size="sm" className="md:hidden">
               <Menu className="h-5 w-5" />
             </Button>

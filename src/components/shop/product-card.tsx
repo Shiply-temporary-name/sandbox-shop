@@ -5,13 +5,26 @@ import { Product } from "@/types";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/utils";
 import { ShoppingCart, Heart } from "lucide-react";
+import { useCart } from "@/store/cart-context";
+import { useToast } from "@/components/ui/toast";
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart?: (product: Product) => void;
 }
 
-export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export function ProductCard({ product }: ProductCardProps) {
+  const { addToCart, getItemQuantity } = useCart();
+  const { addToast } = useToast();
+  const quantityInCart = getItemQuantity(product.id);
+
+  const handleAddToCart = () => {
+    addToCart(product, 1);
+    addToast({
+      type: 'success',
+      title: 'Added to cart!',
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="relative aspect-square">
@@ -46,11 +59,13 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
         
         <Button 
           className="w-full" 
-          onClick={() => onAddToCart?.(product)}
+          onClick={handleAddToCart}
           disabled={!product.inStock}
         >
           <ShoppingCart className="h-4 w-4 mr-2" />
-          {product.inStock ? "Add to Cart" : "Out of Stock"}
+          {product.inStock ? (
+            quantityInCart > 0 ? `In Cart (${quantityInCart})` : "Add to Cart"
+          ) : "Out of Stock"}
         </Button>
       </div>
     </div>
