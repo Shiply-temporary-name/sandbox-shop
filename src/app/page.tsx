@@ -50,6 +50,50 @@ const featuredProducts: Product[] = [
     rating: 4.6,
     reviews: 67,
   },
+  {
+    id: "5",
+    name: "Laptop Backpack",
+    description: "Durable laptop backpack with multiple compartments and USB charging port.",
+    price: 79.99,
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
+    category: "Accessories",
+    inStock: true,
+    rating: 4.4,
+    reviews: 92,
+  },
+  {
+    id: "6",
+    name: "Bluetooth Speaker",
+    description: "Portable Bluetooth speaker with 360-degree sound and waterproof design.",
+    price: 149.99,
+    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400&h=400&fit=crop",
+    category: "Electronics",
+    inStock: true,
+    rating: 4.7,
+    reviews: 156,
+  },
+  {
+    id: "7",
+    name: "Yoga Mat",
+    description: "Premium non-slip yoga mat with excellent grip and cushioning.",
+    price: 49.99,
+    image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop",
+    category: "Sports",
+    inStock: true,
+    rating: 4.6,
+    reviews: 203,
+  },
+  {
+    id: "8",
+    name: "Desk Lamp",
+    description: "Modern LED desk lamp with adjustable brightness and USB charging port.",
+    price: 69.99,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+    category: "Home & Kitchen",
+    inStock: true,
+    rating: 4.5,
+    reviews: 87,
+  },
 ];
 
 export default function Home() {
@@ -74,10 +118,6 @@ export default function Home() {
               <ProductCard 
                 key={product.id} 
                 product={product}
-                onAddToCart={(product) => {
-                  console.log("Added to cart:", product.name);
-                  // TODO: Implement cart functionality
-                }}
               />
             ))}
           </div>
